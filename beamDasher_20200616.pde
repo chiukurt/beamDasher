@@ -1,5 +1,12 @@
 // Kurt Chiu 2020-05-10
 int gameHeight, gameWidth;
+ArrayList<ArrayList> gameObjects;
+ArrayList<beamTrail> trailList;
+int a=200, b=200, c=200, d, e, f;
+int tick;
+
+
+Player p1;
 void setup() {
   size (displayWidth, displayHeight, P3D);
   imageMode (CENTER);
@@ -11,28 +18,43 @@ void setup() {
   gameHeight = int(displayHeight*0.9);
   gameWidth = int(gameHeight*10/16);
 
-
   frustum(-8, 8, -4.5, 4.5, 3.5, 10000);
+
+  gameObjects = new ArrayList<ArrayList>(); //The master arrayList
+  trailList = new ArrayList<beamTrail>();
+
+  gameObjects.add (trailList);
+
+  p1 = new Player (0, 0, 0);
 }
 
-int a=200, b=200, c=200, d, e, f;
+
 
 void draw() {
   background (0);
+
   stroke (200);
   fill (200);
   rect (displayWidth/2, displayHeight/2, gameWidth, gameHeight);
-  camera( a, b, c, d, e, f, 0, 0, -1);
-  pointLight(255, 255, 255, a, b, c);
+  //camera( a, b, c, d, e, f, 0, 0, -1);
+  pointLight(255, 255, 255, p1.x, p1.y, p1.z+100);
 
 
   if (cameraDebugMode)
     camera( a+cx, b+cy, c+cz, d+cx, e+cy, f+cz, 0, 0, -1);
-  else
-    camera( a, b, c, d, e, f, 0, 0, -1);
   keyboardDebugControls();
 
   endlessFloor (3000, 100);
+
+  objectListTraverseMain(gameObjects);
+  objectListTraverseRender(gameObjects);
+  p1.Main();
+  
+  if (tick%5==0)
+    trailList.add (new beamTrail (p1.x,p1.y,p1.z+100));
+  
+  tick++;
+  //filter (BLUR, 3);
 }
 
 void mousePressed() {
