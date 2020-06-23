@@ -21,7 +21,11 @@ void setup() {
   frustum(-8, 8, -4.5, 4.5, 3.5, 10000);
 
   gameObjects = new ArrayList<ArrayList>(); //The master arrayList
+
+
+
   trailList = new ArrayList<beamTrail>();
+  trailList.add (new beamTrail ());
 
   gameObjects.add (trailList);
 
@@ -44,15 +48,19 @@ void draw() {
     camera( a+cx, b+cy, c+cz, d+cx, e+cy, f+cz, 0, 0, -1);
   keyboardDebugControls();
 
-  endlessFloor (3000, 100);
+ 
 
   objectListTraverseMain(gameObjects);
   objectListTraverseRender(gameObjects);
   p1.Main();
-  
+
   if (tick%5==0)
-    trailList.add (new beamTrail (p1.x,p1.y,p1.z+100));
-  
+  {
+    for (beamTrail trail : trailList) {
+      trail.beamPoints.add(new beamPoint (p1.x, p1.y, p1.z+50));
+    }
+  }
+
   tick++;
   //filter (BLUR, 3);
 }

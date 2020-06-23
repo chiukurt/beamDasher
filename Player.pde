@@ -1,8 +1,12 @@
 class Player {
   int x, y, z;
   PVector lookAngle;
+  float turnTilt = HALF_PI;
+
+  //Constants
   int speed = 10;
   float turnSpeed = HALF_PI/(speed*3.5);
+  int turnTiltMax = 10;
 
   Player(int x, int y, int z) {
     this.x = x;
@@ -16,31 +20,48 @@ class Player {
     x+=lookAngle.x*speed;
     y+=lookAngle.y*speed;
 
+    //Add gradual tilt
     if (mousePressed) {
       if (mouseButton == LEFT) {
         lookAngle.rotate(-turnSpeed);
+        turnTilt = turnTiltMax;
       }
       if (mouseButton == RIGHT) {
         lookAngle.rotate(turnSpeed);
+        turnTilt = -turnTiltMax;
       }
+    }
+    else {
+    turnTilt = 0;
     }
   }
 }
 
 class beamTrail extends Renderable {
   int x, y, z;
+  ArrayList<beamPoint> beamPoints;
 
-  beamTrail(int x, int y, int z) {
-    this.x=x;
-    this.y=y;
-    this.z=z;
+  beamTrail() {
+    beamPoints = new ArrayList<beamPoint>();
   }
 
   void render() {
-    translate (x,y,z);
-    noStroke();
-    fill (255);
-    box (10);
-    translate (-x,-y,-z);
+    for (beamPoint point : beamPoints) {
+      translate (point.x, point.y, point.z);
+      noStroke();
+      fill (255);
+      box (10);
+      translate (-point.x, -point.y, -point.z);
+    }
+  }
+}
+
+class beamPoint {
+  int x, y, z;
+
+  beamPoint(int x, int y, int z) {
+    this.x=x;
+    this.y=y;
+    this.z=z;
   }
 }
