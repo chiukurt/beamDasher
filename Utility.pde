@@ -30,7 +30,7 @@ void renderObjectsPerType (ArrayList<Renderable> objectTypeList) {
   pushMatrix();
   
   // Rotate based on player facing 
-  rotateZ(p1.turnTilt);
+  //rotateZ(p1.turnTilt);
   
   for (Renderable itemToRender : objectTypeList) {
     if (itemToRender.enabled) {

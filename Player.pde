@@ -30,9 +30,8 @@ class Player {
         lookAngle.rotate(turnSpeed);
         turnTilt = -turnTiltMax;
       }
-    }
-    else {
-    turnTilt = 0;
+    } else {
+      turnTilt = 0;
     }
   }
 }
@@ -46,13 +45,25 @@ class beamTrail extends Renderable {
   }
 
   void render() {
+    int i = 0;
+    strokeWeight(10);
+    stroke (50, 200, 250);
+
+    beamPoint temp = new beamPoint (p1.x, p1.y, p1.z);
+
     for (beamPoint point : beamPoints) {
-      translate (point.x, point.y, point.z);
-      noStroke();
-      fill (255);
-      box (10);
-      translate (-point.x, -point.y, -point.z);
+      if ( i > 0) {
+        line (temp.x, temp.y, temp.z, point.x, point.y, point.z);
+        line (temp.x, temp.y, temp.z, point.x, point.y, point.z+5);
+        line (temp.x, temp.y, temp.z, point.x, point.y, point.z+10);
+        line (temp.x, temp.y, temp.z, point.x, point.y, point.z+15);
+        line (temp.x, temp.y, temp.z, point.x, point.y, point.z+20);
+        line (temp.x, temp.y, temp.z, point.x, point.y, point.z+25);
+      }
+      temp = point;
+      i++;
     }
+    strokeWeight(1);
   }
 }
 
