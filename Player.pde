@@ -16,7 +16,7 @@ class Player {
   }
 
   void Main() {
-    camera(x, y, z+250, x+lookAngle.x*50, y+lookAngle.y*50, z+200, 0, 0, -1);
+    camera(x, y, z+230, x+lookAngle.x*30, y+lookAngle.y*30, z+200, 0, 0, -1);
     x+=lookAngle.x*speed;
     y+=lookAngle.y*speed;
 
@@ -46,19 +46,21 @@ class beamTrail extends Renderable {
 
   void render() {
     int i = 0;
-    strokeWeight(10);
-    stroke (50, 200, 250);
+    strokeWeight(4);
+    stroke (50, 200, 250, 50);
 
     beamPoint temp = new beamPoint (p1.x, p1.y, p1.z);
 
     for (beamPoint point : beamPoints) {
       if ( i > 0) {
-        line (temp.x, temp.y, temp.z, point.x, point.y, point.z);
-        line (temp.x, temp.y, temp.z, point.x, point.y, point.z+5);
-        line (temp.x, temp.y, temp.z, point.x, point.y, point.z+10);
-        line (temp.x, temp.y, temp.z, point.x, point.y, point.z+15);
-        line (temp.x, temp.y, temp.z, point.x, point.y, point.z+20);
-        line (temp.x, temp.y, temp.z, point.x, point.y, point.z+25);
+        stroke (50, 200, 250, 50);
+        for (int j = 0; j < 100; j+=5) {
+          line (temp.x, temp.y, temp.z+j, point.x, point.y, point.z+j);
+        }
+
+        stroke (255, 255, 255, 100);
+        line (temp.x, temp.y, temp.z-5, point.x, point.y, point.z-5);
+        line (temp.x, temp.y, temp.z+105, point.x, point.y, point.z+105);
       }
       temp = point;
       i++;

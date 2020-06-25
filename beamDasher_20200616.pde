@@ -37,24 +37,25 @@ void setup() {
 void draw() {
   background (0);
 
-  stroke (200);
-  fill (200);
-  rect (displayWidth/2, displayHeight/2, gameWidth, gameHeight);
+  //stroke (200);
+  //fill (200);
+  //rect (displayWidth/2, displayHeight/2, gameWidth, gameHeight);
   //camera( a, b, c, d, e, f, 0, 0, -1);
-  pointLight(255, 255, 255, p1.x, p1.y, p1.z+100);
 
+  // Change to have trail always be light  lights() during trail render
+  pointLight(255, 255, 255, p1.x, p1.y, p1.z+100);
 
   if (cameraDebugMode)
     camera( a+cx, b+cy, c+cz, d+cx, e+cy, f+cz, 0, 0, -1);
   keyboardDebugControls();
 
- 
+
 
   objectListTraverseMain(gameObjects);
   objectListTraverseRender(gameObjects);
   p1.Main();
 
-  if (tick%5==0)
+  if (tick%2==0)
   {
     for (beamTrail trail : trailList) {
       trail.beamPoints.add(new beamPoint (p1.x, p1.y, p1.z+50));

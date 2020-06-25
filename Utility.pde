@@ -28,16 +28,17 @@ ArrayList<Renderable> CleanObjectList  (ArrayList<Renderable> objectTypeList) {
 
 void renderObjectsPerType (ArrayList<Renderable> objectTypeList) {
   pushMatrix();
-  
+
   // Rotate based on player facing 
   //rotateZ(p1.turnTilt);
-  
+
   for (Renderable itemToRender : objectTypeList) {
     if (itemToRender.enabled) {
       itemToRender.render();
     }
   }
-   endlessFloor (3000, 100);
+ 
+  endlessFloor (3000, 100);
   popMatrix();
 }
 
