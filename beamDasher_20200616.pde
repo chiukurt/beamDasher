@@ -2,7 +2,7 @@
 int gameHeight, gameWidth;
 ArrayList<ArrayList> gameObjects;
 ArrayList<beamTrail> trailList;
-int a=200, b=200, c=200, d, e, f;
+int a=200, b=200, c=500, d, e, f;
 int tick;
 
 
@@ -58,7 +58,7 @@ void draw() {
   if (tick%2==0)
   {
     for (beamTrail trail : trailList) {
-      trail.beamPoints.add(new beamPoint (p1.x, p1.y, p1.z+50));
+      trail.beamPoints.add(new beamPoint (p1.x, p1.y, p1.z+50, p1.turnTilt, p1.lookAngle));
     }
   }
 

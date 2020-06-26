@@ -38,7 +38,7 @@ void renderObjectsPerType (ArrayList<Renderable> objectTypeList) {
     }
   }
  
-  endlessFloor (3000, 100);
+  endlessFloor (10000, 100);
   popMatrix();
 }
 
