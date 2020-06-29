@@ -2,8 +2,10 @@
 int gameHeight, gameWidth;
 ArrayList<ArrayList> gameObjects;
 ArrayList<beamTrail> trailList;
+ArrayList<Player> playerList; 
 int a=200, b=200, c=500, d, e, f;
 int tick;
+int g=140,h=10,i=320;
 
 
 Player p1;
@@ -22,14 +24,16 @@ void setup() {
 
   gameObjects = new ArrayList<ArrayList>(); //The master arrayList
 
-
+  p1 = new Player (0, 0, 0);
 
   trailList = new ArrayList<beamTrail>();
   trailList.add (new beamTrail ());
 
-  gameObjects.add (trailList);
+  // playerList = new ArrayList <Player>();
+  //playerList.add (p1);
 
-  p1 = new Player (0, 0, 0);
+  gameObjects.add (trailList);
+  // gameObjects.add (playerList);
 }
 
 
@@ -43,17 +47,28 @@ void draw() {
   //camera( a, b, c, d, e, f, 0, 0, -1);
 
   // Change to have trail always be light  lights() during trail render
-  pointLight(255, 255, 255, p1.x, p1.y, p1.z+100);
+  pointLight(255, 255, 255, p1.x, p1.y, p1.z+200);
 
-  if (cameraDebugMode)
-    camera( a+cx, b+cy, c+cz, d+cx, e+cy, f+cz, 0, 0, -1);
+
   keyboardDebugControls();
 
 
 
+  if (cameraDebugMode) {
+    noLights();
+    camera(a+cx, b+cy, c+cz, d+cx, e+cy, f+cz, 0, 0, -1);
+  }
+
+
+  p1.Main();
+  pushMatrix();
+  p1.render();
+  popMatrix();
+
   objectListTraverseMain(gameObjects);
   objectListTraverseRender(gameObjects);
-  p1.Main();
+
+
 
   if (tick%2==0)
   {

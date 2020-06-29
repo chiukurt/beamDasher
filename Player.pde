@@ -1,4 +1,4 @@
-class Player {
+class Player extends Renderable {
   int x, y, z;
   PVector lookAngle;
 
@@ -23,12 +23,29 @@ class Player {
     lookAngle = new PVector (1, 1);
   }
 
+
+  void render() {
+    noStroke();
+    fill (60);
+    translate(x, y, z+100);
+    rotateZ (lookAngle.heading());
+    box (150);
+
+    translate(-x, -y, -z);
+  }
+
   void Main() {
-    camera(x, y, z+230, x+lookAngle.x*30, y+lookAngle.y*30, z+200, 0, 0, -1);
+    if (!cameraDebugMode)
+      camera(
+        x-lookAngle.x*g, y-lookAngle.y*g, z+i, 
+        x+lookAngle.x*h, y+lookAngle.y*h, z+200, 
+        0, 0, -1);
+
     x+=lookAngle.x*speed;
     y+=lookAngle.y*speed;
+    //int g=140,h=10,i=320;
+    //println (g+" "+h+" "+ i);
 
-  println (turnTilt);
     //Add gradual tilt
     if (mousePressed) {
 
@@ -48,7 +65,6 @@ class Player {
           turnTilt -= turnTiltMax/tiltRate;
         }
       }
-      
     } else {
       if (turnSpeed > 0) 
         turnSpeed -= turnSpeedMax/tiltRate;
@@ -61,7 +77,7 @@ class Player {
 }
 
 class beamTrail extends Renderable {
-  int x, y, z;
+  //int x, y, z;
   ArrayList<beamPoint> beamPoints;
 
   beamTrail() {
@@ -138,6 +154,6 @@ class beamPoint {
     this.y=y;
     this.z=z;
     this.tilt = tilt;
-    this.lookAngle = lookAngle;
+    this.lookAngle = lookAngle.copy();
   }
 }

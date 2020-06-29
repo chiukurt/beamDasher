@@ -13,17 +13,23 @@ void keyboardDebugControls() {
     cameraDebugMode= false;
   }
   if (keys['W']) {
-    cy--;
+    g--;
   }
   if (keys['S']) {
-    cy++;
+    g++;
   }
   ;  
   if (keys['A']) {
-    cx--;
+    h--;
   }
   if (keys['D']) {
-    cx++;
+    h++;
+  }
+   if (keys['Q']) {
+    i--;
+  }
+  if (keys['E']) {
+    i++;
   }
 
   /*
