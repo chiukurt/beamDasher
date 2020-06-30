@@ -2,16 +2,12 @@ class Player extends Renderable {
   int x, y, z;
   PVector lookAngle;
 
-
-
   float turnTilt = 0;
   float turnSpeed = 0;
 
-
-
   //Constants
-  int speed = 10; // Movement speed
-  float turnSpeedMax = HALF_PI/(speed*3.5);
+  int speed =20; // Movement speed
+  float turnSpeedMax = HALF_PI/(speed*1.5);
   int turnTiltMax = 7;
 
   float tiltRate = 10; // Larger number = slower turn/ # of cycles to hit max
@@ -20,7 +16,7 @@ class Player extends Renderable {
     this.x = x;
     this.y = y;
     this.z = z;
-    lookAngle = new PVector (1, 1);
+    lookAngle = new PVector (0, 1);
   }
 
 
@@ -29,6 +25,7 @@ class Player extends Renderable {
     fill (60);
     translate(x, y, z+100);
     rotateZ (lookAngle.heading());
+    rotateX (turnTilt*HALF_PI/30);
     box (150);
 
     translate(-x, -y, -z);
@@ -37,13 +34,12 @@ class Player extends Renderable {
   void Main() {
     if (!cameraDebugMode)
       camera(
-        x-lookAngle.x*g, y-lookAngle.y*g, z+i, 
-        x+lookAngle.x*h, y+lookAngle.y*h, z+200, 
+        x-lookAngle.x*140, y-lookAngle.y*140, z+320, 
+        x+lookAngle.x*10, y+lookAngle.y*10, z+200, 
         0, 0, -1);
 
     x+=lookAngle.x*speed;
     y+=lookAngle.y*speed;
-    //int g=140,h=10,i=320;
     //println (g+" "+h+" "+ i);
 
     //Add gradual tilt
@@ -54,9 +50,17 @@ class Player extends Renderable {
       }
 
       if (mouseButton == LEFT) {
-        lookAngle.rotate(-turnSpeed);
-        if (turnTilt < turnTiltMax) {
-          turnTilt += turnTiltMax/tiltRate;
+
+        if (mouseX<displayWidth/2) {
+          lookAngle.rotate(-turnSpeed);
+          if (turnTilt < turnTiltMax) {
+            turnTilt += turnTiltMax/tiltRate;
+          }
+        } else {
+          lookAngle.rotate(turnSpeed);
+          if (turnTilt > -turnTiltMax) {
+            turnTilt -= turnTiltMax/tiltRate;
+          }
         }
       }
       if (mouseButton == RIGHT) {

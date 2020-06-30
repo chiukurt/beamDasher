@@ -29,6 +29,11 @@ ArrayList<Renderable> CleanObjectList  (ArrayList<Renderable> objectTypeList) {
 void renderObjectsPerType (ArrayList<Renderable> objectTypeList) {
   pushMatrix();
 
+  translate (p1.x, p1.y, p1.z);
+  //rotateZ (p1.lookAngle.heading());
+ // rotateX (p1.turnTilt*HALF_PI/30);
+  translate (-p1.x, -p1.y, -p1.z);
+
   // Rotate based on player facing 
   //rotateZ(p1.turnTilt);
 
@@ -37,7 +42,7 @@ void renderObjectsPerType (ArrayList<Renderable> objectTypeList) {
       itemToRender.render();
     }
   }
- 
+
   endlessFloor (10000, 100);
   popMatrix();
 }

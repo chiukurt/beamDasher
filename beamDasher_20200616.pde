@@ -5,7 +5,7 @@ ArrayList<beamTrail> trailList;
 ArrayList<Player> playerList; 
 int a=200, b=200, c=500, d, e, f;
 int tick;
-int g=140,h=10,i=320;
+int g=1, h=0, i=320;
 
 
 Player p1;
@@ -52,8 +52,6 @@ void draw() {
 
   keyboardDebugControls();
 
-
-
   if (cameraDebugMode) {
     noLights();
     camera(a+cx, b+cy, c+cz, d+cx, e+cy, f+cz, 0, 0, -1);
@@ -65,10 +63,10 @@ void draw() {
   p1.render();
   popMatrix();
 
+
+
   objectListTraverseMain(gameObjects);
   objectListTraverseRender(gameObjects);
-
-
 
   if (tick%2==0)
   {
@@ -83,8 +81,6 @@ void draw() {
 
 void mousePressed() {
 }
-
-
 
 void endlessFloor (int radius, int boxsize) {
   noStroke();
