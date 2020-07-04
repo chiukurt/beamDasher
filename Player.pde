@@ -6,7 +6,7 @@ class Player extends Renderable {
   float turnSpeed = 0;
 
   //Constants
-  int speed =20; // Movement speed
+  int speed = 20; // Movement speed
   float turnSpeedMax = HALF_PI/(speed*1.5);
   int turnTiltMax = 7;
 
@@ -22,7 +22,7 @@ class Player extends Renderable {
 
   void render() {
     noStroke();
-    fill (60);
+    fill (150);
     translate(x, y, z+100);
     rotateZ (lookAngle.heading());
     rotateX (turnTilt*HALF_PI/30);
@@ -44,26 +44,17 @@ class Player extends Renderable {
 
     //Add gradual tilt
     if (mousePressed) {
-
       if (turnSpeed < turnSpeedMax) {
         turnSpeed += turnSpeedMax/tiltRate;
       }
 
-      if (mouseButton == LEFT) {
 
-        if (mouseX<displayWidth/2) {
-          lookAngle.rotate(-turnSpeed);
-          if (turnTilt < turnTiltMax) {
-            turnTilt += turnTiltMax/tiltRate;
-          }
-        } else {
-          lookAngle.rotate(turnSpeed);
-          if (turnTilt > -turnTiltMax) {
-            turnTilt -= turnTiltMax/tiltRate;
-          }
+      if (mouseX<displayWidth/2) {
+        lookAngle.rotate(-turnSpeed);
+        if (turnTilt < turnTiltMax) {
+          turnTilt += turnTiltMax/tiltRate;
         }
-      }
-      if (mouseButton == RIGHT) {
+      } else {
         lookAngle.rotate(turnSpeed);
         if (turnTilt > -turnTiltMax) {
           turnTilt -= turnTiltMax/tiltRate;
@@ -78,6 +69,7 @@ class Player extends Renderable {
         turnTilt += turnTiltMax/tiltRate;
     }
   }
+  
 }
 
 class beamTrail extends Renderable {

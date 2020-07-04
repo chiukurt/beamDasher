@@ -1,4 +1,12 @@
 // Kurt Chiu 2020-05-10
+/*
+Stroke ignores light
+
+TODO: 
+Try PShape for beam trail
+https://processing.org/tutorials/pshape/
+
+*/
 int gameHeight, gameWidth;
 ArrayList<ArrayList> gameObjects;
 ArrayList<beamTrail> trailList;
@@ -9,8 +17,14 @@ int g=1, h=0, i=320;
 
 
 Player p1;
+
+public void settings(){
+//480*800
+size (displayWidth, displayHeight, P3D);
+}
+
 void setup() {
-  size (displayWidth, displayHeight, P3D);
+  frameRate(60);
   imageMode (CENTER);
   rectMode(CENTER);
   textAlign(CENTER);
@@ -20,7 +34,9 @@ void setup() {
   gameHeight = int(displayHeight*0.9);
   gameWidth = int(gameHeight*10/16);
 
-  frustum(-8, 8, -4.5, 4.5, 3.5, 10000);
+//frustum(-8, 8, -4.5, 4.5, 3.5, 10000);
+ frustum(-displayWidth/100, displayWidth/100, -displayHeight/100, displayHeight/100, 3.5, 10000);
+
 
   gameObjects = new ArrayList<ArrayList>(); //The master arrayList
 
@@ -80,23 +96,4 @@ void draw() {
 }
 
 void mousePressed() {
-}
-
-void endlessFloor (int radius, int boxsize) {
-  noStroke();
-  for (int i=int(a)-radius; i < b + radius; i+=boxsize) {
-    for (int j=int(a)-radius; j < b + radius; j+=boxsize) {
-
-      fill(120);
-      if ((i % (boxsize*2) >= boxsize) || (i % (boxsize*2) <= -boxsize))
-        if ((j % (boxsize*2) >= boxsize) || (j % (boxsize*2) <= -boxsize))
-          fill (100);
-
-      if (!((i % (boxsize*2) >= boxsize) || (i % (boxsize*2) <= -boxsize)))
-        if (!((j % (boxsize*2) >= boxsize) || (j % (boxsize*2) <= -boxsize)))
-          fill (100);
-
-      rect (round((i/boxsize)*boxsize), round((j/boxsize)*boxsize), boxsize, boxsize);
-    }
-  }
 }
