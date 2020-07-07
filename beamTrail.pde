@@ -7,6 +7,20 @@ class beamTrail extends Renderable {
     beamPoints = new ArrayList<beamPoint>();
   }
 
+  //Calculates collisions TODO: Optimize for less calculations/performance boost
+  void Main() {
+    PVector playerLocation = new PVector (p1.x, p1.y);
+    PVector buffer = p1.lookAngle.copy();
+    playerLocation.add(buffer.mult(140));
+
+    for (beamPoint point : beamPoints) {
+      PVector pointLocation = new PVector (point.x, point.y);
+      if (playerLocation.dist(pointLocation) <= p1.size) {
+        exit();
+      }
+    }
+  }
+
   void render() {
 
     beginShape(QUAD_STRIP);
@@ -81,6 +95,7 @@ class beamTrail extends Renderable {
 }
 
 class beamPoint {
+
   int x, y, z;
   float tilt;
   PVector lookAngle;

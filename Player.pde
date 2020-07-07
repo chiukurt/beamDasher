@@ -12,6 +12,9 @@ class Player extends Renderable {
 
   float tiltRate = 10; // Larger number = slower turn/ # of cycles to hit max
 
+  float size=150;
+
+
   Player(int x, int y, int z) {
     this.x = x;
     this.y = y;
@@ -26,7 +29,7 @@ class Player extends Renderable {
     translate(x, y, z+100);
     rotateZ (lookAngle.heading());
     rotateX (turnTilt*HALF_PI/30);
-    box (150);
+    box (size);
 
     translate(-x, -y, -z);
   }
@@ -69,5 +72,4 @@ class Player extends Renderable {
         turnTilt += turnTiltMax/tiltRate;
     }
   }
-  
 }
