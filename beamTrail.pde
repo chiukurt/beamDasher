@@ -95,23 +95,63 @@ class BeamTrail extends Renderable {
   }
 }
 
-class BeamPoint {
-
-  int x, y, z;
+class BeamPoint extends Point3D {
   float tilt;
   PVector lookAngle;
 
   BeamPoint(int x, int y, int z) {
-    this.x=x;
-    this.y=y;
-    this.z=z;
+    super (x, y, z);
     this.tilt = 0;
   }
   BeamPoint(int x, int y, int z, float tilt, PVector lookAngle) {
+    super (x, y, z);
+    this.tilt = tilt;
+    this.lookAngle = lookAngle.copy();
+  }
+}
+
+class DeathChunk extends Renderable {
+  DeathChunkPoint point; //location
+  int life;
+
+  DeathChunk(int x, int y, int z) {
+    point = new DeathChunkPoint(x, y, z);
+    life = 255;
+  }
+
+  void Main() {
+    point.Main();
+    life--;
+  }
+  void render() {
+    noStroke();
+    fill (life);
+    translate (point.x, point.y, point.z);
+    box (40);
+    translate (-point.x, -point.y, -point.z);
+  }
+}
+
+class DeathChunkPoint extends Point3D {
+  PVector v; // velocity
+  DeathChunkPoint(int x, int y, int z) {
+    super (x, y, z);
+    this.v=PVector.random3D();
+    v.mult(5);
+  }
+
+  void Main() {
+    x+=v.x;
+    y+=v.y;
+    z+=v.z;
+  }
+}
+
+class Point3D {
+  int x, y, z;
+  Point3D(int x, int y, int z) {
     this.x=x;
     this.y=y;
     this.z=z;
-    this.tilt = tilt;
-    this.lookAngle = lookAngle.copy();
   }
 }

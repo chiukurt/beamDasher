@@ -1,10 +1,41 @@
 
 int gameState = 1; 
 /*
-      0 = Menu placeholder
- 1 = main game loop
+     0 = Menu placeholder
+ 1 = Main game loop
  2 = death animation loop
  */
+
+void resetGame() {
+  frameRate(60);
+  imageMode (CENTER);
+  rectMode(CENTER);
+  textAlign(CENTER);
+  textSize(20);
+  // gameWidth = int(displayWidth*0.8);
+  // gameHeight = int(displayHeight*0.8);
+  gameHeight = int(displayHeight*0.9);
+  gameWidth = int(gameHeight*10/16);
+
+  //frustum(-8, 8, -4.5, 4.5, 3.5, 10000);
+  frustum(-displayWidth/100, displayWidth/100, -displayHeight/100, displayHeight/100, 3.5, 10000);
+
+  gameObjects = new ArrayList<ArrayList>(); //The master arrayList
+
+  p1 = new Player (0, 0, 0);
+
+  trailList = new ArrayList<BeamTrail>();
+  deathChunkList = new ArrayList<DeathChunk>();
+
+  trailList.add (new BeamTrail ());
+
+  // playerList = new ArrayList <Player>();
+  //playerList.add (p1);
+
+  gameObjects.add (trailList);
+  gameObjects.add (deathChunkList);
+  // gameObjects.add (playerList);
+}
 
 
 void menuLoop() {
@@ -88,9 +119,10 @@ void deathLoop() {
   }
 
   tick++;
-  println(tick);
 
-  if (tick > 254)
-    exit();
+  if (tick > 254) {
+    resetGame();
+    gameState = 0;
+  }
   //filter (BLUR, 3);
 }

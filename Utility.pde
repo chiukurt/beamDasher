@@ -14,7 +14,7 @@ void objectListTraverseRender(ArrayList<ArrayList> gameObjects) {
 
 void objectListTraverseMain(ArrayList<ArrayList> gameObjects) {
   for (ArrayList objectTypeList : gameObjects) {
-    mainObjectsPerType (objectTypeList);
+    MainObjectsPerType (objectTypeList);
   }
 }
 
@@ -47,7 +47,7 @@ void renderObjectsPerType (ArrayList<Renderable> objectTypeList) {
   popMatrix();
 }
 
-void mainObjectsPerType (ArrayList<Renderable> objectTypeList) {
+void MainObjectsPerType (ArrayList<Renderable> objectTypeList) {
   for (Renderable itemToRender : objectTypeList) {
     if (itemToRender.enabled) 
       itemToRender.Main();

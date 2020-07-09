@@ -33,15 +33,24 @@ class Player extends Renderable {
 
     translate(-x, -y, -z);
   }
-  
-    void renderDeath() {
+
+  void renderDeath() {
+    if (tick%3==0)
+      deathChunkList.add(new DeathChunk(x, y, z));
+    for (DeathChunk chunk : deathChunkList) {
+      if (chunk.life>0) {
+        chunk.Main();
+        chunk.render();
+      }
+    }
+
+
     noStroke();
-    fill (150,150,150,255-tick);
+    fill (150, 150, 150, 255-tick);
     translate(x, y, z+100);
     rotateZ (lookAngle.heading());
     rotateX (turnTilt*HALF_PI/30);
-    box (size++);
-
+    box (size);
     translate(-x, -y, -z);
   }
 
