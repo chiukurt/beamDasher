@@ -33,6 +33,17 @@ class Player extends Renderable {
 
     translate(-x, -y, -z);
   }
+  
+    void renderDeath() {
+    noStroke();
+    fill (150,150,150,255-tick);
+    translate(x, y, z+100);
+    rotateZ (lookAngle.heading());
+    rotateX (turnTilt*HALF_PI/30);
+    box (size++);
+
+    translate(-x, -y, -z);
+  }
 
   void Main() {
     if (!cameraDebugMode)

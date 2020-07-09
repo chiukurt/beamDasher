@@ -1,10 +1,10 @@
 
-class beamTrail extends Renderable {
+class BeamTrail extends Renderable {
   //int x, y, z;
-  ArrayList<beamPoint> beamPoints;
+  ArrayList<BeamPoint> BeamPoints;
 
-  beamTrail() {
-    beamPoints = new ArrayList<beamPoint>();
+  BeamTrail() {
+    BeamPoints = new ArrayList<BeamPoint>();
   }
 
   //Calculates collisions TODO: Optimize for less calculations/performance boost
@@ -13,10 +13,11 @@ class beamTrail extends Renderable {
     PVector buffer = p1.lookAngle.copy();
     playerLocation.add(buffer.mult(140));
 
-    for (beamPoint point : beamPoints) {
+    for (BeamPoint point : BeamPoints) {
       PVector pointLocation = new PVector (point.x, point.y);
       if (playerLocation.dist(pointLocation) <= p1.size) {
-        exit();
+        gameState=2;
+        tick=0;
       }
     }
   }
@@ -24,7 +25,7 @@ class beamTrail extends Renderable {
   void render() {
 
     beginShape(QUAD_STRIP);
-    for (beamPoint point : beamPoints) {
+    for (BeamPoint point : BeamPoints) {
       strokeWeight(4);
       stroke (255, 255, 255, 200);
       fill (50, 200, 250, 50);
@@ -45,9 +46,9 @@ class beamTrail extends Renderable {
     strokeWeight(4);
     stroke (50, 200, 250, 50);
 
-    beamPoint pPoint = new beamPoint (p1.x, p1.y, p1.z, 0, new PVector (0, 0));//Previous point
+    BeamPoint pPoint = new BeamPoint (p1.x, p1.y, p1.z, 0, new PVector (0, 0));//Previous point
 
-    for (beamPoint point : beamPoints) {
+    for (BeamPoint point : BeamPoints) {
       PVector tempPoint = pPoint.lookAngle.copy();
       PVector tempPoint2 = pPoint.lookAngle.copy();
 
@@ -94,19 +95,19 @@ class beamTrail extends Renderable {
   }
 }
 
-class beamPoint {
+class BeamPoint {
 
   int x, y, z;
   float tilt;
   PVector lookAngle;
 
-  beamPoint(int x, int y, int z) {
+  BeamPoint(int x, int y, int z) {
     this.x=x;
     this.y=y;
     this.z=z;
     this.tilt = 0;
   }
-  beamPoint(int x, int y, int z, float tilt, PVector lookAngle) {
+  BeamPoint(int x, int y, int z, float tilt, PVector lookAngle) {
     this.x=x;
     this.y=y;
     this.z=z;
