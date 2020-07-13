@@ -37,92 +37,43 @@ void resetGame() {
   // gameObjects.add (playerList);
 }
 
-
 void menuLoop() {
   //Placeholder
   if (gameState != 1)
     gameState=1;
 }
 
-void gameLoop() {
-  background (0);
-
-  //stroke (200);
-  //fill (200);
-  //rect (displayWidth/2, displayHeight/2, gameWidth, gameHeight);
-  //camera( a, b, c, d, e, f, 0, 0, -1);
-
-  // Change to have trail always be light  lights() during trail render
+void gameLoopRender() {
   pointLight(255, 255, 255, p1.x, p1.y, p1.z+200);
-
-
-  keyboardDebugControls();
-
+  background (0);
   if (cameraDebugMode) {
     noLights();
     camera(a+cx, b+cy, c+cz, d+cx, e+cy, f+cz, 0, 0, -1);
   }
-
-
-  p1.Main();
   pushMatrix();
-  p1.render();
+  if (gameState!=2)
+    p1.render();
+  else
+    p1.renderDeath();
   popMatrix();
-
-
-
-  objectListTraverseMain(gameObjects);
   objectListTraverseRender(gameObjects);
+}
 
-  if (tick%2==0)
-  {
-    for (BeamTrail trail : trailList) {
-      trail.BeamPoints.add(new BeamPoint (p1.x, p1.y, p1.z+50, p1.turnTilt, p1.lookAngle));
-    }
-  }
-
+void gameLoopMain() {
+  // Change to have trail always be light  lights() during trail render
   tick++;
-  //filter (BLUR, 3);
+  keyboardDebugControls();
+  if (tick%2==0)
+    for (BeamTrail trail : trailList) 
+      trail.BeamPoints.add(new BeamPoint (p1.x, p1.y, p1.z+50, p1.turnTilt, p1.lookAngle));
+  p1.Main();
+  objectListTraverseMain(gameObjects);
 }
 
 void deathLoop() {
-  background (tick);
-
-  //stroke (200);
-  //fill (200);
-  //rect (displayWidth/2, displayHeight/2, gameWidth, gameHeight);
-  //camera( a, b, c, d, e, f, 0, 0, -1);
-
-  // Change to have trail always be light  lights() during trail render
-  pointLight(255, 255, 255, p1.x, p1.y, p1.z+200);
-
-
-  keyboardDebugControls();
-
-  if (cameraDebugMode) {
-    noLights();
-    camera(a+cx, b+cy, c+cz, d+cx, e+cy, f+cz, 0, 0, -1);
-  }
-
-  pushMatrix();
-  p1.renderDeath();
-  popMatrix();
-
-
-  objectListTraverseRender(gameObjects);
-
-  if (tick%2==0)
-  {
-    for (BeamTrail trail : trailList) {
-      trail.BeamPoints.add(new BeamPoint (p1.x, p1.y, p1.z+50, p1.turnTilt, p1.lookAngle));
-    }
-  }
-
   tick++;
-
   if (tick > 254) {
     resetGame();
     gameState = 0;
   }
-  //filter (BLUR, 3);
 }

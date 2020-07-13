@@ -1,4 +1,5 @@
 class Renderable extends Object {
+  boolean affectedByLights=true;
   boolean enabled=true;
   void render() {
   }
@@ -26,25 +27,41 @@ ArrayList<Renderable> CleanObjectList  (ArrayList<Renderable> objectTypeList) {
   return cleanedList;
 }
 
-void renderObjectsPerType (ArrayList<Renderable> objectTypeList) {
-  pushMatrix();
+void enableLightsCustom() {
+  ambientLight(50, 50, 50);
+  directionalLight(128, 128, 128, 0, 0, -1);
+  lightFalloff(1, 0, 0);
+  lightSpecular(100, 100, 100);
+}
 
-  translate (p1.x, p1.y, p1.z);
+void renderObjectsPerType (ArrayList<Renderable> objectTypeList) {
+  
+
+  pushMatrix();
+  //translate (p1.x, p1.y, p1.z);
   //rotateZ (p1.lookAngle.heading());
   // rotateX (p1.turnTilt*HALF_PI/30);
-  translate (-p1.x, -p1.y, -p1.z);
-
+  //translate (-p1.x, -p1.y, -p1.z);
   // Rotate based on player facing 
   //rotateZ(p1.turnTilt);
-
   for (Renderable itemToRender : objectTypeList) {
-    if (itemToRender.enabled) {
+    if (itemToRender.enabled && itemToRender.affectedByLights) {
       itemToRender.render();
     }
   }
+  popMatrix();
+
+  //noLights();
+
+  pushMatrix();
+  for (Renderable itemToRender : objectTypeList) {
+    if (itemToRender.enabled && !itemToRender.affectedByLights) {
+      itemToRender.render();
+    }
+  }
+  popMatrix();
 
   endlessFloor (10000, 1500);
-  popMatrix();
 }
 
 void MainObjectsPerType (ArrayList<Renderable> objectTypeList) {

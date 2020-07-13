@@ -9,10 +9,13 @@ class Player extends Renderable {
   int speed = 20; // Movement speed
   float turnSpeedMax = HALF_PI/(speed*1.5);
   int turnTiltMax = 7;
+  float turnGoal = 0; // Amount mouse is offset from center screen
 
   float tiltRate = 10; // Larger number = slower turn/ # of cycles to hit max
 
   float size=150;
+
+  boolean alive = true;
 
 
   Player(int x, int y, int z) {
@@ -30,7 +33,6 @@ class Player extends Renderable {
     rotateZ (lookAngle.heading());
     rotateX (turnTilt*HALF_PI/30);
     box (size);
-
     translate(-x, -y, -z);
   }
 
@@ -67,19 +69,22 @@ class Player extends Renderable {
 
     //Add gradual tilt
     if (mousePressed) {
-      if (turnSpeed < turnSpeedMax) {
+      turnGoal = turnSpeedMax*abs((displayWidth/2-mouseX)/(displayWidth/2.0));
+
+      if (turnSpeed < turnGoal) {
         turnSpeed += turnSpeedMax/tiltRate;
-      }
+      } else
+        turnSpeed -= turnSpeedMax/tiltRate;
 
 
       if (mouseX<displayWidth/2) {
         lookAngle.rotate(-turnSpeed);
-        if (turnTilt < turnTiltMax) {
+        if (turnTilt < turnGoal) {
           turnTilt += turnTiltMax/tiltRate;
         }
       } else {
         lookAngle.rotate(turnSpeed);
-        if (turnTilt > -turnTiltMax) {
+        if (turnTilt > -turnGoal) {
           turnTilt -= turnTiltMax/tiltRate;
         }
       }

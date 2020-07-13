@@ -1,6 +1,7 @@
 
 class BeamTrail extends Renderable {
   //int x, y, z;
+  boolean affectedByLights=false;
   ArrayList<BeamPoint> BeamPoints;
 
   BeamTrail() {
@@ -10,8 +11,8 @@ class BeamTrail extends Renderable {
   //Calculates collisions TODO: Optimize for less calculations/performance boost
   void Main() {
     PVector playerLocation = new PVector (p1.x, p1.y);
-    PVector buffer = p1.lookAngle.copy();
-    playerLocation.add(buffer.mult(140));
+    PVector collisionEdge = p1.lookAngle.copy();
+    playerLocation.add(collisionEdge.mult(140));
 
     for (BeamPoint point : BeamPoints) {
       PVector pointLocation = new PVector (point.x, point.y);
@@ -23,21 +24,19 @@ class BeamTrail extends Renderable {
   }
 
   void render() {
-
     beginShape(QUAD_STRIP);
+    noStroke();
+    // shininess(i+1.0);
+    strokeWeight(4);
+    stroke (255, 255, 255, 200);
+    fill (50, 200, 250, 100);
+
     for (BeamPoint point : BeamPoints) {
-      strokeWeight(4);
-      stroke (255, 255, 255, 200);
-      fill (50, 200, 250, 50);
-      // noFill();
-
-
-
-
       vertex(point.x, point.y, point.z+105);
       vertex(point.x, point.y, point.z-5);
     }
     endShape();
+    //specular(102, 102, 102);
   }
 
 
