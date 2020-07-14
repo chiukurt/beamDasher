@@ -17,8 +17,7 @@ class BeamTrail extends Renderable {
     for (BeamPoint point : BeamPoints) {
       PVector pointLocation = new PVector (point.x, point.y);
       if (playerLocation.dist(pointLocation) <= p1.size) {
-        gameState=2;
-        tick=0;
+        p1.kill();
       }
     }
   }
@@ -136,7 +135,7 @@ class DeathChunkPoint extends Point3D {
   DeathChunkPoint(int x, int y, int z) {
     super (x, y, z);
     this.v=PVector.random3D();
-    v.mult(5);
+    v.mult(10);
   }
 
   void Main() {

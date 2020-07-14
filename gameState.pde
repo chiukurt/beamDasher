@@ -18,7 +18,7 @@ void resetGame() {
   gameWidth = int(gameHeight*10/16);
 
   //frustum(-8, 8, -4.5, 4.5, 3.5, 10000);
-  frustum(-displayWidth/100, displayWidth/100, -displayHeight/100, displayHeight/100, 3.5, 10000);
+  frustum(-displayWidth/100, displayWidth/100, -displayHeight/100, displayHeight/100, 3.5, arenaRadius*2);
 
   gameObjects = new ArrayList<ArrayList>(); //The master arrayList
 
@@ -72,7 +72,7 @@ void gameLoopMain() {
 
 void deathLoop() {
   tick++;
-  if (tick > 254) {
+  if (tick > 100) {
     resetGame();
     gameState = 0;
   }

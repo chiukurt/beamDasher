@@ -56,7 +56,16 @@ class Player extends Renderable {
     translate(-x, -y, -z);
   }
 
+  void kill() {
+    gameState=2;
+    tick=0;
+  }
+
   void Main() {
+
+    if (x>arenaRadius || x<-arenaRadius || y>arenaRadius || y<-arenaRadius)
+      kill();
+
     if (!cameraDebugMode)
       camera(
         x-lookAngle.x*140, y-lookAngle.y*140, z+320, 

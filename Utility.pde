@@ -35,7 +35,7 @@ void enableLightsCustom() {
 }
 
 void renderObjectsPerType (ArrayList<Renderable> objectTypeList) {
-  
+
 
   pushMatrix();
   //translate (p1.x, p1.y, p1.z);
@@ -61,7 +61,7 @@ void renderObjectsPerType (ArrayList<Renderable> objectTypeList) {
   }
   popMatrix();
 
-  endlessFloor (10000, 1500);
+  endlessFloor (arenaRadius, 1500);
 }
 
 void MainObjectsPerType (ArrayList<Renderable> objectTypeList) {
@@ -72,11 +72,11 @@ void MainObjectsPerType (ArrayList<Renderable> objectTypeList) {
 }
 
 void endlessFloor (int radius, int boxsize) {
-  //noStroke();
-  strokeWeight(3);
-  stroke (100);
-  for (int i=int(a)-radius; i < b + radius; i+=boxsize) {
-    for (int j=int(a)-radius; j < b + radius; j+=boxsize) {
+  noStroke();
+  //strokeWeight(3);
+  // stroke (100);
+  for (int i=-radius; i < radius; i+=boxsize) {
+    for (int j=-radius; j <  radius; j+=boxsize) {
 
       fill(50);
       if ((i % (boxsize*2) >= boxsize) || (i % (boxsize*2) <= -boxsize))
@@ -87,7 +87,22 @@ void endlessFloor (int radius, int boxsize) {
         if (!((j % (boxsize*2) >= boxsize) || (j % (boxsize*2) <= -boxsize)))
           fill (50);
 
-      rect (round((i/boxsize)*boxsize), round((j/boxsize)*boxsize), boxsize, boxsize);
+      rect (round((i/boxsize)*boxsize), round((j/boxsize)*boxsize), boxsize-10, boxsize-10);
     }
   }
+
+
+  strokeWeight(2);
+  noFill();
+  stroke (255);
+  rect (0, 0, radius*2, radius*2);
+  
+  pushMatrix();
+  for (int i= 1; i < 11; i ++) {
+    stroke (150-i*15);
+    translate(0, 0, 200);
+    rect (0, 0, radius*2, radius*2);
+  }
+
+  popMatrix();
 }
