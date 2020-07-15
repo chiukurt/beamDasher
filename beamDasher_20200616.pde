@@ -6,11 +6,13 @@ Stroke ignores light
  Try PShape for beam trail
  https://processing.org/tutorials/pshape/
  
- Modify entity-beam collision using forward lookangle
+ //Modify entity-beam collision using forward lookangle
  
  Modify collision code for efficiency
  
  Customize lighting
+ 
+ Make a UI that follows the player camera and angle
  
  */
 int gameHeight, gameWidth;
@@ -38,7 +40,7 @@ public void settings() {
 
 void setup() {
   resetGame();
-  smooth(4);
+ // smooth(4);
 }
 
 

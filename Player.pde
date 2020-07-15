@@ -7,6 +7,9 @@ class Player extends Renderable {
 
   //Constants
   int speed = 20; // Movement speed
+  final int speedMax = 40;
+  final int speedMin = 20;
+
   float turnSpeedMax = HALF_PI/(speed*1.5);
   int turnTiltMax = 7;
   float turnGoal = 0; // Amount mouse is offset from center screen
@@ -27,12 +30,24 @@ class Player extends Renderable {
 
 
   void render() {
-    noStroke();
-    fill (150);
+
     translate(x, y, z+100);
     rotateZ (lookAngle.heading());
     rotateX (turnTilt*HALF_PI/30);
+
+    noStroke();
+    fill (150);
     box (size);
+
+
+    translate (0, 0, 100);
+    rotateZ  (HALF_PI);
+
+    fill(255);
+    textSize(32);
+    text ("Big Chungus", 0, 0, 0);
+
+
     translate(-x, -y, -z);
   }
 
@@ -77,33 +92,41 @@ class Player extends Renderable {
     //println (g+" "+h+" "+ i);
 
     //Add gradual tilt
-    if (mousePressed) {
-      turnGoal = turnSpeedMax*abs((displayWidth/2-mouseX)/(displayWidth/2.0));
+    //if (mousePressed) {
 
-      if (turnSpeed < turnGoal) {
-        turnSpeed += turnSpeedMax/tiltRate;
-      } else
-        turnSpeed -= turnSpeedMax/tiltRate;
+    if (mousePressed && speed < speedMax) 
+      speed++;
+    else if (!mousePressed && speed > speedMin)
+      speed--;
+
+    frustum(-displayWidth/100, displayWidth/100, -displayHeight/100, displayHeight/100, 4-speed/20.0, arenaRadius*2);
+
+    turnGoal = turnSpeedMax*abs((displayWidth/2-mouseX)/(displayWidth/2.0));
+
+    if (turnSpeed < turnGoal) {
+      turnSpeed += turnSpeedMax/tiltRate;
+    } else
+      turnSpeed -= turnSpeedMax/tiltRate;
 
 
-      if (mouseX<displayWidth/2) {
-        lookAngle.rotate(-turnSpeed);
-        if (turnTilt < turnGoal) {
-          turnTilt += turnTiltMax/tiltRate;
-        }
-      } else {
-        lookAngle.rotate(turnSpeed);
-        if (turnTilt > -turnGoal) {
-          turnTilt -= turnTiltMax/tiltRate;
-        }
+    if (mouseX<displayWidth/2) {
+      lookAngle.rotate(-turnSpeed);
+      if (turnTilt < turnGoal) {
+        turnTilt += turnTiltMax/tiltRate;
       }
     } else {
-      if (turnSpeed > 0) 
-        turnSpeed -= turnSpeedMax/tiltRate;
-      if (turnTilt > 0)
+      lookAngle.rotate(turnSpeed);
+      if (turnTilt > -turnGoal) {
         turnTilt -= turnTiltMax/tiltRate;
-      if (turnTilt < 0)
-        turnTilt += turnTiltMax/tiltRate;
+      }
     }
+    /* } else {
+     if (turnSpeed > 0) 
+     turnSpeed -= turnSpeedMax/tiltRate;
+     if (turnTilt > 0)
+     turnTilt -= turnTiltMax/tiltRate;
+     if (turnTilt < 0)
+     turnTilt += turnTiltMax/tiltRate;
+     }*/
   }
 }

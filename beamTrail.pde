@@ -12,11 +12,11 @@ class BeamTrail extends Renderable {
   void Main() {
     PVector playerLocation = new PVector (p1.x, p1.y);
     PVector collisionEdge = p1.lookAngle.copy();
-    playerLocation.add(collisionEdge.mult(140));
+    playerLocation.add(collisionEdge.mult(80));
 
     for (BeamPoint point : BeamPoints) {
       PVector pointLocation = new PVector (point.x, point.y);
-      if (playerLocation.dist(pointLocation) <= p1.size) {
+      if (playerLocation.dist(pointLocation) <= p1.size/2) {
         p1.kill();
       }
     }
