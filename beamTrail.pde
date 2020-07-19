@@ -10,12 +10,12 @@ class BeamTrail extends Renderable {
 
   //Calculates collisions TODO: Optimize for less calculations/performance boost
   void Main() {
-    PVector playerLocation = new PVector (p1.x, p1.y);
+    PVector playerLocation = new PVector (p1.x, p1.y, p1.z);
     PVector collisionEdge = p1.lookAngle.copy();
     playerLocation.add(collisionEdge.mult(80));
 
     for (BeamPoint point : BeamPoints) {
-      PVector pointLocation = new PVector (point.x, point.y);
+      PVector pointLocation = new PVector (point.x, point.y, point.z);
       if (playerLocation.dist(pointLocation) <= p1.size/2) {
         p1.kill();
       }

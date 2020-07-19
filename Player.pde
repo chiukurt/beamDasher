@@ -9,16 +9,19 @@ class Player extends Renderable {
   int speed = 20; // Movement speed
   final int speedMax = 40;
   final int speedMin = 20;
+  final float size=150;
 
-  float turnSpeedMax = HALF_PI/(speed*1.5);
-  int turnTiltMax = 7;
+  final float turnSpeedMax = HALF_PI/(speed*1.5);
+  final int turnTiltMax = 7;
+  final float tiltRate = 10; // Larger number = slower turn/ # of cycles to hit max
   float turnGoal = 0; // Amount mouse is offset from center screen
 
-  float tiltRate = 10; // Larger number = slower turn/ # of cycles to hit max
 
-  float size=150;
+
 
   boolean alive = true;
+
+  float zvel;
 
 
   Player(int x, int y, int z) {
@@ -78,9 +81,24 @@ class Player extends Renderable {
 
   void Main() {
 
+
+    //Jumping
+    if (z>0)
+      zvel--;
+    if (z<=0) {
+      zvel = 0;
+      z=0;
+    }
+    if (mouseButton == RIGHT && z == 0)
+      zvel=20;
+    z+=zvel;
+
+
+    //Boundary collision
     if (x>arenaRadius || x<-arenaRadius || y>arenaRadius || y<-arenaRadius)
       kill();
 
+    //Set to player viewpoint
     if (!cameraDebugMode)
       camera(
         x-lookAngle.x*140, y-lookAngle.y*140, z+320, 
@@ -94,39 +112,32 @@ class Player extends Renderable {
     //Add gradual tilt
     //if (mousePressed) {
 
+    //Acceleration
     if (mousePressed && speed < speedMax) 
       speed++;
     else if (!mousePressed && speed > speedMin)
       speed--;
-
+    //Perspective warp on speed boost
     frustum(-displayWidth/100, displayWidth/100, -displayHeight/100, displayHeight/100, 4-speed/20.0, arenaRadius*2);
 
+
+    //Turning
     turnGoal = turnSpeedMax*abs((displayWidth/2-mouseX)/(displayWidth/2.0));
 
-    if (turnSpeed < turnGoal) {
+    if (turnSpeed < turnGoal) 
       turnSpeed += turnSpeedMax/tiltRate;
-    } else
+    else
       turnSpeed -= turnSpeedMax/tiltRate;
-
 
     if (mouseX<displayWidth/2) {
       lookAngle.rotate(-turnSpeed);
-      if (turnTilt < turnGoal) {
+      if (turnTilt < turnGoal) 
         turnTilt += turnTiltMax/tiltRate;
-      }
     } else {
       lookAngle.rotate(turnSpeed);
       if (turnTilt > -turnGoal) {
         turnTilt -= turnTiltMax/tiltRate;
       }
     }
-    /* } else {
-     if (turnSpeed > 0) 
-     turnSpeed -= turnSpeedMax/tiltRate;
-     if (turnTilt > 0)
-     turnTilt -= turnTiltMax/tiltRate;
-     if (turnTilt < 0)
-     turnTilt += turnTiltMax/tiltRate;
-     }*/
   }
 }

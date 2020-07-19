@@ -14,6 +14,10 @@ Stroke ignores light
  
  Make a UI that follows the player camera and angle
  
+ Fix jumping collision
+ 
+ Handle multiple tap inputs on android to allow jumping and acceleration independant from turning
+ 
  */
 int gameHeight, gameWidth;
 ArrayList<ArrayList> gameObjects;
