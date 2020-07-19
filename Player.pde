@@ -23,6 +23,8 @@ class Player extends Renderable {
 
   float zvel;
 
+  boolean hasJumped = false;
+
 
   Player(int x, int y, int z) {
     this.x = x;
@@ -89,8 +91,13 @@ class Player extends Renderable {
       zvel = 0;
       z=0;
     }
-    if (mouseButton == RIGHT && z == 0)
-      zvel=20;
+
+    if (mouseDoubleClicked) {
+      zvel= 20;
+      hasJumped=true;
+      mouseDoubleClicked = false;
+    }
+
     z+=zvel;
 
 
@@ -113,9 +120,9 @@ class Player extends Renderable {
     //if (mousePressed) {
 
     //Acceleration
-    if (mousePressed && speed < speedMax) 
+    if (mouseButton == LEFT && speed < speedMax) 
       speed++;
-    else if (!mousePressed && speed > speedMin)
+    else if (mouseButton != LEFT && speed > speedMin)
       speed--;
     //Perspective warp on speed boost
     frustum(-displayWidth/100, displayWidth/100, -displayHeight/100, displayHeight/100, 4-speed/20.0, arenaRadius*2);

@@ -18,6 +18,9 @@ Stroke ignores light
  
  Handle multiple tap inputs on android to allow jumping and acceleration independant from turning
  
+ Turn double click to jump into an upwards swipe to jump
+ Turn acceleration into double tap
+ 
  */
 int gameHeight, gameWidth;
 ArrayList<ArrayList> gameObjects;
@@ -34,6 +37,8 @@ final int screenL = 0;
 final int screenR = displayWidth;
 final int screenM = displayWidth/2;
 
+int dblClickTimer = 20;
+boolean mouseDoubleClicked = false;
 
 Player p1;
 
@@ -44,7 +49,7 @@ public void settings() {
 
 void setup() {
   resetGame();
- // smooth(4);
+  // smooth(4);
 }
 
 
@@ -65,7 +70,16 @@ void draw() {
       break;
     default:
     }
+    dblClickTimer--;
   }
+}
+
+void mouseClicked() {
+  if (dblClickTimer <= 0) {
+    dblClickTimer = 30;
+    mouseDoubleClicked = false;
+  } else
+    mouseDoubleClicked = true;
 }
 
 void mousePressed() {
