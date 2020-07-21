@@ -16,9 +16,6 @@ class Player extends Renderable {
   final float tiltRate = 10; // Larger number = slower turn/ # of cycles to hit max
   float turnGoal = 0; // Amount mouse is offset from center screen
 
-
-
-
   boolean alive = true;
 
   float zvel;
@@ -82,7 +79,7 @@ class Player extends Renderable {
   }
 
   void Main() {
-
+    //Controls, movement, jumping
 
     //Jumping
     if (z>0)
@@ -92,11 +89,16 @@ class Player extends Renderable {
       z=0;
     }
 
-    if (mouseDoubleClicked) {
+    if (pmouseY - mouseY > displayHeight/10) {
       zvel= 20;
-      hasJumped=true;
-      mouseDoubleClicked = false;
     }
+
+    /* doubleclick jump
+     if (mouseDoubleClicked) {
+     zvel= 20;
+     hasJumped=true;
+     mouseDoubleClicked = false;
+     }*/
 
     z+=zvel;
 
@@ -119,11 +121,19 @@ class Player extends Renderable {
     //Add gradual tilt
     //if (mousePressed) {
 
-    //Acceleration
-    if (mouseButton == LEFT && speed < speedMax) 
+    if (mousePressed && mouseDoubleClicked && speed < speedMax) {
       speed++;
-    else if (mouseButton != LEFT && speed > speedMin)
+    } else if (!mousePressed && speed > speedMin)
       speed--;
+
+    /* Left click acceleration
+     //Acceleration
+     if (mouseButton == LEFT && speed < speedMax) 
+     speed++;
+     else if (mouseButton != LEFT && speed > speedMin)
+     speed--;
+     */
+
     //Perspective warp on speed boost
     frustum(-displayWidth/100, displayWidth/100, -displayHeight/100, displayHeight/100, 4-speed/20.0, arenaRadius*2);
 

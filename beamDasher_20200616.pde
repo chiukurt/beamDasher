@@ -16,10 +16,10 @@ Stroke ignores light
  
  Fix jumping collision
  
- Handle multiple tap inputs on android to allow jumping and acceleration independant from turning
+// Handle multiple tap inputs on android to allow jumping and acceleration independant from turning
  
- Turn double click to jump into an upwards swipe to jump
- Turn acceleration into double tap
+ //Turn double click to jump into an upwards swipe to jump
+// Turn acceleration into double tap
  
  */
 int gameHeight, gameWidth;
@@ -74,13 +74,12 @@ void draw() {
   }
 }
 
-void mouseClicked() {
-  if (dblClickTimer <= 0) {
-    dblClickTimer = 30;
-    mouseDoubleClicked = false;
-  } else
+void mousePressed() {
+  if (dblClickTimer > 0) 
     mouseDoubleClicked = true;
 }
 
-void mousePressed() {
+void mouseReleased() {
+  dblClickTimer = 30;
+  mouseDoubleClicked = false;
 }
