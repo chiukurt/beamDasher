@@ -36,7 +36,6 @@ class Player extends Renderable {
     translate(x, y, z+100);
     rotateZ (lookAngle.heading());
     rotateX (turnTilt*HALF_PI/30);
-
     noStroke();
     fill (150);
     box (size);
@@ -44,13 +43,11 @@ class Player extends Renderable {
 
     translate (0, 0, 100);
     rotateZ  (HALF_PI);
-
+    stroke(255);
     fill(255);
     textSize(32);
     text ("Big Chungus", 0, 0, 0);
 
-
-    translate(-x, -y, -z);
   }
 
   void renderDeath() {
@@ -74,8 +71,8 @@ class Player extends Renderable {
   }
 
   void kill() {
-    gameState=2;
-    tick=0;
+    //gameState=2;
+    // tick=0;
   }
 
   void Main() {

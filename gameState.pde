@@ -50,12 +50,7 @@ void gameLoopRender() {
     noLights();
     camera(a+cx, b+cy, c+cz, d+cx, e+cy, f+cz, 0, 0, -1);
   }
-  pushMatrix();
-  if (gameState!=2)
-    p1.render();
-  else
-    p1.renderDeath();
-  popMatrix();
+
   objectListTraverseRender(gameObjects);
 }
 
@@ -64,8 +59,8 @@ void gameLoopMain() {
   tick++;
   keyboardDebugControls();
   if (tick%2==0)
-    for (BeamTrail trail : trailList) 
-      trail.BeamPoints.add(new BeamPoint (p1.x, p1.y, p1.z+50, p1.turnTilt, p1.lookAngle));
+  for (BeamTrail trail : trailList) 
+  trail.BeamPoints.add(new BeamPoint (p1.x, p1.y, p1.z+50, p1.turnTilt, p1.lookAngle));
   p1.Main();
   objectListTraverseMain(gameObjects);
 }

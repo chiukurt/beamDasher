@@ -1,6 +1,7 @@
 // Kurt Chiu 2020-05-10
 /*
-Stroke ignores light
+
+ Stroke ignores light
  
  TODO: 
  Try PShape for beam trail
@@ -14,12 +15,12 @@ Stroke ignores light
  
  Make a UI that follows the player camera and angle
  
- Fix jumping collision
+ //Fix jumping collision
  
-// Handle multiple tap inputs on android to allow jumping and acceleration independant from turning
+ //Handle multiple tap inputs on android to allow jumping and acceleration independant from turning
  
  //Turn double click to jump into an upwards swipe to jump
-// Turn acceleration into double tap
+ //Turn acceleration into double tap
  
  */
 int gameHeight, gameWidth;
@@ -29,7 +30,7 @@ ArrayList<DeathChunk> deathChunkList;
 ArrayList<Player> playerList; 
 int a=200, b=200, c=500, d, e, f;
 int tick;
-int g=1, h=0, i=0;
+int g=0, h=0, i=-1;
 
 int arenaRadius = 10000;
 
@@ -77,9 +78,9 @@ void draw() {
 void mousePressed() {
   if (dblClickTimer > 0) 
     mouseDoubleClicked = true;
+  dblClickTimer = 30;
 }
 
 void mouseReleased() {
-  dblClickTimer = 30;
   mouseDoubleClicked = false;
 }

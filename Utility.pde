@@ -35,24 +35,20 @@ void enableLightsCustom() {
 }
 
 void renderObjectsPerType (ArrayList<Renderable> objectTypeList) {
-
-
   pushMatrix();
-  //translate (p1.x, p1.y, p1.z);
-  //rotateZ (p1.lookAngle.heading());
-  // rotateX (p1.turnTilt*HALF_PI/30);
-  //translate (-p1.x, -p1.y, -p1.z);
-  // Rotate based on player facing 
-  //rotateZ(p1.turnTilt);
+  pushMatrix();
+  if (gameState!=2)
+    p1.render();
+  else
+    p1.renderDeath();
+  popMatrix();
+  pushMatrix();
   for (Renderable itemToRender : objectTypeList) {
     if (itemToRender.enabled && itemToRender.affectedByLights) {
       itemToRender.render();
     }
   }
   popMatrix();
-
-  //noLights();
-
   pushMatrix();
   for (Renderable itemToRender : objectTypeList) {
     if (itemToRender.enabled && !itemToRender.affectedByLights) {
@@ -60,8 +56,8 @@ void renderObjectsPerType (ArrayList<Renderable> objectTypeList) {
     }
   }
   popMatrix();
-
   endlessFloor (arenaRadius, 1500);
+  popMatrix();
 }
 
 void MainObjectsPerType (ArrayList<Renderable> objectTypeList) {
@@ -96,7 +92,7 @@ void endlessFloor (int radius, int boxsize) {
   noFill();
   stroke (255);
   rect (0, 0, radius*2, radius*2);
-  
+
   pushMatrix();
   for (int i= 1; i < 11; i ++) {
     stroke (150-i*15);
