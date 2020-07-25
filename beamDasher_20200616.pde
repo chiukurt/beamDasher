@@ -1,6 +1,7 @@
 // Kurt Chiu 2020-05-10
 /*
 
+
  Stroke ignores light
  
  TODO: 
@@ -16,13 +17,23 @@
  Make a UI that follows the player camera and angle
  
  //Fix jumping collision
- 
  //Handle multiple tap inputs on android to allow jumping and acceleration independant from turning
- 
  //Turn double click to jump into an upwards swipe to jump
  //Turn acceleration into double tap
  
- */
+ In addition to arrayList beamTrail, save it to a HashMap.
+ Cycle through arrayList as normal to render trail.
+ 
+ Replace collision code with HashMap as to avoid iterating through an arrayList
+ Use HashMap for streamlined collision avoidance AI
+ 
+ Learn more about HashMaps. Try to replace beamTrail arrayList with hashMap entirely.
+ Maybe store hash of beamTrail tips and iterate through the trail for rendering?
+ 
+ 
+ 
+
+*/
 int gameHeight, gameWidth;
 ArrayList<ArrayList> gameObjects;
 ArrayList<BeamTrail> trailList;

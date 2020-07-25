@@ -60,7 +60,7 @@ void gameLoopMain() {
   keyboardDebugControls();
   if (tick%2==0)
   for (BeamTrail trail : trailList) 
-  trail.BeamPoints.add(new BeamPoint (p1.x, p1.y, p1.z+50, p1.turnTilt, p1.lookAngle));
+  trail.BeamPoints.add(new BeamPoint (round(p1.x), round(p1.y), p1.z+50, p1.turnTilt, p1.lookAngle));
   p1.Main();
   objectListTraverseMain(gameObjects);
 }

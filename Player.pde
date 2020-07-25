@@ -33,21 +33,25 @@ class Player extends Renderable {
 
   void render() {
 
-    translate(x, y, z+100);
+    translate(round(x), round(y), round(z+100));
     rotateZ (lookAngle.heading());
-    rotateX (turnTilt*HALF_PI/30);
+    rotateX (round(turnTilt*HALF_PI/30.0));
     noStroke();
     fill (150);
     box (size);
 
 
-    translate (0, 0, 100);
+    translate (-90, h, g+234);
+    println (i+" "+h+" "+(g+100));
     rotateZ  (HALF_PI);
+    rotateX (-HALF_PI+PI*30/180.0);
+    noLights();
     stroke(255);
     fill(255);
     textSize(32);
-    text ("Big Chungus", 0, 0, 0);
 
+    text ("Testing123123123", 0, 0, 0);
+    text ("456456456Testing", 0, 0, -100);
   }
 
   void renderDeath() {
