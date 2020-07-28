@@ -22,18 +22,21 @@ void resetGame() {
 
   gameObjects = new ArrayList<ArrayList>(); //The master arrayList
 
-  p1 = new Player (0, 0, 0);
-
   trailList = new ArrayList<BeamTrail>();
   deathChunkList = new ArrayList<DeathChunk>();
+  dasherList = new ArrayList<Dasher>();
+  p1 = new Player (0, 0, 0);
+  dasherList.add (p1);
 
-  trailList.add (new BeamTrail ());
+  for (int i = 1; i < 4; i++)
+    dasherList.add (new Dasher (0, i*2000, 0));
 
   // playerList = new ArrayList <Player>();
   //playerList.add (p1);
 
   gameObjects.add (trailList);
   gameObjects.add (deathChunkList);
+  gameObjects.add (dasherList);
   // gameObjects.add (playerList);
 }
 
@@ -58,10 +61,7 @@ void gameLoopMain() {
   // Change to have trail always be light  lights() during trail render
   tick++;
   keyboardDebugControls();
-  if (tick%2==0)
-  for (BeamTrail trail : trailList) 
-  trail.BeamPoints.add(new BeamPoint (round(p1.x), round(p1.y), p1.z+50, p1.turnTilt, p1.lookAngle));
-  p1.Main();
+
   objectListTraverseMain(gameObjects);
 }
 

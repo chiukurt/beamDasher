@@ -1,5 +1,4 @@
 class Renderable extends Object {
-  boolean affectedByLights=true;
   boolean enabled=true;
   void render() {
   }
@@ -35,29 +34,23 @@ void enableLightsCustom() {
 }
 
 void renderObjectsPerType (ArrayList<Renderable> objectTypeList) {
-  pushMatrix();
+/*
   pushMatrix();
   if (gameState!=2)
     p1.render();
   else
     p1.renderDeath();
-  popMatrix();
+  popMatrix();*/
+  
   pushMatrix();
   for (Renderable itemToRender : objectTypeList) {
-    if (itemToRender.enabled && itemToRender.affectedByLights) {
-      itemToRender.render();
-    }
-  }
-  popMatrix();
-  pushMatrix();
-  for (Renderable itemToRender : objectTypeList) {
-    if (itemToRender.enabled && !itemToRender.affectedByLights) {
+    if (itemToRender.enabled) {
       itemToRender.render();
     }
   }
   popMatrix();
   endlessFloor (arenaRadius, 1500);
-  popMatrix();
+
 }
 
 void MainObjectsPerType (ArrayList<Renderable> objectTypeList) {

@@ -3,22 +3,32 @@ class BeamTrail extends Renderable {
   //int x, y, z;
   boolean affectedByLights=false;
   ArrayList<BeamPoint> BeamPoints;
+  Dasher dasher;
+  color trailColor;
 
-  BeamTrail() {
+  BeamTrail(Dasher dasher, color trailColor) {
+    this.dasher = dasher;
     BeamPoints = new ArrayList<BeamPoint>();
+    this.trailColor = trailColor;
+  }
+
+  BeamTrail(Dasher dasher) {
+    this.dasher = dasher;
+    BeamPoints = new ArrayList<BeamPoint>();
+    this.trailColor = color (50, 200, 250, 100);
   }
 
   //Calculates collisions TODO: Optimize for less calculations/performance boost
   //Example: Compare by axis, short circuit and skip remaining calculations if too far in 1 dimension
   void Main() {
-    PVector playerLocation = new PVector (p1.x, p1.y, p1.z);
-    PVector collisionEdge = p1.lookAngle.copy();
-    playerLocation.add(collisionEdge.mult(80));
+    PVector dasherLocation = new PVector (dasher.x, dasher.y, dasher.z);
+    PVector collisionEdge = dasher.lookAngle.copy();
+    dasherLocation.add(collisionEdge.mult(80));
 
     for (BeamPoint point : BeamPoints) {
       PVector pointLocation = new PVector (point.x, point.y, point.z);
-      if (playerLocation.dist(pointLocation) <= p1.size/2) {
-        p1.kill();
+      if (dasherLocation.dist(pointLocation) <= dasher.size/2) {
+        //dasher.kill();
       }
     }
   }
@@ -29,7 +39,7 @@ class BeamTrail extends Renderable {
     // shininess(i+1.0);
     strokeWeight(4);
     stroke (255, 255, 255, 200);
-    fill (50, 200, 250, 100);
+    fill (trailColor);
 
     for (BeamPoint point : BeamPoints) {
       vertex(point.x, point.y, point.z+105);
@@ -46,7 +56,7 @@ class BeamTrail extends Renderable {
    strokeWeight(4);
    stroke (50, 200, 250, 50);
    
-   BeamPoint pPoint = new BeamPoint (p1.x, p1.y, p1.z, 0, new PVector (0, 0));//Previous point
+   BeamPoint pPoint = new BeamPoint (dasher.x, dasher.y, dasher.z, 0, new PVector (0, 0));//Previous point
    
    for (BeamPoint point : BeamPoints) {
    PVector tempPoint = pPoint.lookAngle.copy();

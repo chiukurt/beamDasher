@@ -30,6 +30,8 @@
  Learn more about HashMaps. Try to replace beamTrail arrayList with hashMap entirely.
  Maybe store hash of beamTrail tips and iterate through the trail for rendering?
  
+ reenable death
+ 
  
  
 
@@ -38,7 +40,7 @@ int gameHeight, gameWidth;
 ArrayList<ArrayList> gameObjects;
 ArrayList<BeamTrail> trailList;
 ArrayList<DeathChunk> deathChunkList;
-ArrayList<Player> playerList; 
+ArrayList<Dasher> dasherList; 
 int a=200, b=200, c=500, d, e, f;
 int tick;
 int g=0, h=0, i=-1;
