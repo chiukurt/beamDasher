@@ -3,17 +3,21 @@
 ### Current plan
 
 * Experiment with calculation optimization, 3D rendering, AI (potentially)
-* Multi-leveled survival game
-* Player and enemies create a trail when moving
-* Player collision with the trail will end the game
-* Quantity of enemies will increase with level (potentially their intelligence as well)
-* The goal of the game is to advance to the next level by being the 'last one standing'
+* Multi-leveled survival game with scaling difficulty
+
 * Player potentially has the ability to boost speed and jump (Maybe pickup powerup with timers)
+* Player and enemies create a trail when moving
+* Player or enemy collision with any trail will destroy the entity
+* If the Player is destroyed, the game is considered over
 * Score will be shown after game over. Score will be shown as time taken and stage achieved
+* The goal of the game is to advance to the next level by being the 'last one standing'
+* Quantity of enemies will increase with level (potentially their intelligence, turning ability, etc)
+
+
 
 <hr>
 
-
+Up
 ### TODO / Current questions
  
 * Optimize collision detection
