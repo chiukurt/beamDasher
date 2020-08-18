@@ -38,6 +38,9 @@ void resetGame() {
   gameObjects.add (deathChunkList);
   gameObjects.add (dasherList);
   // gameObjects.add (playerList);
+  
+  chunks = new Chunk[arenaRadius/100][arenaRadius/100];
+  
 }
 
 void menuLoop() {
