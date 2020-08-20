@@ -63,7 +63,22 @@ Up
         Enemies will have the same base speed and turn speed as the player
         Enemies will be able to look ahead forward and to both sides in order to plan their turns and avoid collisions
         
-  
+        
+* Start menu (Start game, options)
+
+       Options allow for screen rotation to accomodate for Android phones
+       Allow for choice of starting level. 'cheats'?
+       Change player color.
+       
+       Loop switch statement to determine behaviour, ex: code -1 for main menu, 0 for pause, 1 for game, 2 for gameover
+       
+ * Screen rotation
+ 
+       --Hypothetical methods--
+       Rotate entire matrix? Which axis?
+       Learn new framework for rendering?
+       Swap existing rotations? Upward direction = Z, change this to x/y?
+       
  * <del> Fix jumping collision </del>
  * <del> Handle multiple tap inputs on android to allow jumping and acceleration independant from turning  </del>
  * <del> <del> Turn double click to jump into an upwards swipe to jump </del>
