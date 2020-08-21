@@ -24,6 +24,8 @@ class BeamTrail extends Renderable {
     PVector dasherLocation = new PVector (dasher.x, dasher.y, dasher.z);
     PVector collisionEdge = dasher.lookAngle.copy();
     dasherLocation.add(collisionEdge.mult(80));
+    
+    
 
     for (BeamPoint point : BeamPoints) {
       PVector pointLocation = new PVector (point.x, point.y, point.z);
@@ -109,14 +111,21 @@ class BeamPoint extends Point3D {
   float tilt;
   PVector lookAngle;
 
-  BeamPoint(int x, int y, int z) {
-    super (x, y, z);
-    this.tilt = 0;
-  }
+  /* BeamPoint(int x, int y, int z) {
+   super (x, y, z);
+   this.tilt = 0;
+   }*/
+
   BeamPoint(int x, int y, int z, float tilt, PVector lookAngle) {
     super (x, y, z);
     this.tilt = tilt;
     this.lookAngle = lookAngle.copy();
+
+    //Optimize this later
+    if (round(100+x/100) >= 0 && round(100+x/100) < 200 && round(100+y/100) >= 0 && round(100+y/100) < 200) {
+      println (round(100+x/100), round(100+y/100));
+      chunks[round(100+x/100)][round(100+y/100)].content.add (new Collidable (x, y, z));
+    }
   }
 }
 

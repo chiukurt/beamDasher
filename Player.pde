@@ -15,7 +15,7 @@ class Player extends Dasher {
       z=0;
     }
 
-    if (pmouseY - mouseY > displayHeight/10) {
+    if (pmouseY - mouseY > displayHeight/10 && z == 0) {
       zvel= 20;
     }
 

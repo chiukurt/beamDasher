@@ -22,6 +22,14 @@ void resetGame() {
 
   gameObjects = new ArrayList<ArrayList>(); //The master arrayList
 
+  chunks = new Chunk[2*arenaRadius/100][2*arenaRadius/100];
+  for (int i = 0; i < 2*arenaRadius/100; i++)
+    for (int j = 0; j < 2*arenaRadius/100; j++)
+      chunks[i][j]=new Chunk();
+
+  println (2*arenaRadius/100);
+
+
   trailList = new ArrayList<BeamTrail>();
   deathChunkList = new ArrayList<DeathChunk>();
   dasherList = new ArrayList<Dasher>();
@@ -38,9 +46,6 @@ void resetGame() {
   gameObjects.add (deathChunkList);
   gameObjects.add (dasherList);
   // gameObjects.add (playerList);
-  
-  chunks = new Chunk[arenaRadius/100][arenaRadius/100];
-  
 }
 
 void menuLoop() {
