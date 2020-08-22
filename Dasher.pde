@@ -84,7 +84,7 @@ class Dasher extends Renderable {
 
   void kill() {
     //gameState=2;
-    // tick=0;
+    //tick=0;
   }
 
   void Main() {

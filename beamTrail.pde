@@ -18,19 +18,27 @@ class BeamTrail extends Renderable {
     this.trailColor = color (50, 200, 250, 100);
   }
 
-  //Calculates collisions TODO: Optimize for less calculations/performance boost
+  //Calculates collisions
+  // Create approximation PVector of dasher location in next draw() loop
+  // determinme which chunk this point resides in
+  // perform distance calculations for each beamPoint in the corresponding chunk
+  // If the distance is less than the size of the object, collision occurs.
   //Example: Compare by axis, short circuit and skip remaining calculations if too far in 1 dimension
   void Main() {
     PVector dasherLocation = new PVector (dasher.x, dasher.y, dasher.z);
     PVector collisionEdge = dasher.lookAngle.copy();
     dasherLocation.add(collisionEdge.mult(80));
-    
-    
 
-    for (BeamPoint point : BeamPoints) {
-      PVector pointLocation = new PVector (point.x, point.y, point.z);
-      if (dasherLocation.dist(pointLocation) <= dasher.size/2) {
-        //dasher.kill();
+
+
+    //Optimize this check
+    if (round(100+dasherLocation.x/100) >= 0 && round(100+dasherLocation.x/100) < 200 && round(100+dasherLocation.y/100) >= 0 && round(100+dasherLocation.y/100) < 200) {
+
+      for (Collidable beamPoint : chunks[round(100+dasherLocation.x/100)][round(100+dasherLocation.y/100)].content) {
+        PVector pointLocation = new PVector (beamPoint.point.x, beamPoint.point.y, beamPoint.point.z);
+        if (dasherLocation.dist(pointLocation) <= dasher.size/2) 
+          //dasher.kill();
+          println ("Collision occured");
       }
     }
   }
@@ -123,7 +131,6 @@ class BeamPoint extends Point3D {
 
     //Optimize this later
     if (round(100+x/100) >= 0 && round(100+x/100) < 200 && round(100+y/100) >= 0 && round(100+y/100) < 200) {
-      println (round(100+x/100), round(100+y/100));
       chunks[round(100+x/100)][round(100+y/100)].content.add (new Collidable (x, y, z));
     }
   }

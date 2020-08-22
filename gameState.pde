@@ -27,7 +27,6 @@ void resetGame() {
     for (int j = 0; j < 2*arenaRadius/100; j++)
       chunks[i][j]=new Chunk();
 
-  println (2*arenaRadius/100);
 
 
   trailList = new ArrayList<BeamTrail>();
