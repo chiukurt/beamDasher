@@ -22,6 +22,7 @@ Player p1;
 
 Chunk[][] chunks;
 
+
 public void settings() {
   //480*800 ideally
   size (displayWidth, displayHeight, P3D);

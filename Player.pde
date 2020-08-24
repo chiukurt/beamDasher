@@ -4,6 +4,8 @@ class Player extends Dasher {
     super(x, y, z);
   }
 
+
+
   void Main() {
     //Controls, movement, jumping
 
@@ -20,8 +22,10 @@ class Player extends Dasher {
     }
 
     z+=zvel;  //Boundary collision
-    if (x>arenaRadius || x<-arenaRadius || y>arenaRadius || y<-arenaRadius)
+    if (alive && x>arenaRadius || x<-arenaRadius || y>arenaRadius || y<-arenaRadius) {
       kill();
+      gameState = 2;
+    }
 
     //Set to player viewpoint
     if (!cameraDebugMode)
@@ -54,5 +58,12 @@ class Player extends Dasher {
         turnTilt -= turnTiltMax/tiltRate;
       }
     }
+  }
+  
+
+  void kill() {
+    super.kill();
+    gameState=2;
+    tick=0;
   }
 }

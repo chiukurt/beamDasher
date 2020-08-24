@@ -25,20 +25,23 @@ class BeamTrail extends Renderable {
   // If the distance is less than the size of the object, collision occurs.
   //Example: Compare by axis, short circuit and skip remaining calculations if too far in 1 dimension
   void Main() {
-    PVector dasherLocation = new PVector (dasher.x, dasher.y, dasher.z);
-    PVector collisionEdge = dasher.lookAngle.copy();
-    dasherLocation.add(collisionEdge.mult(80));
+    if (dasher.alive) {
+      PVector dasherLocation = new PVector (dasher.x, dasher.y, dasher.z);
+      PVector collisionEdge = dasher.lookAngle.copy();
+      dasherLocation.add(collisionEdge.mult(80));
 
 
 
-    //Optimize this check
-    if (round(100+dasherLocation.x/100) >= 0 && round(100+dasherLocation.x/100) < 200 && round(100+dasherLocation.y/100) >= 0 && round(100+dasherLocation.y/100) < 200) {
+      //Optimize this check
+      //Fix hit detection; some cases miss
+         if (chunkValid (int(dasherLocation.x), int(dasherLocation.y))) {
 
-      for (Collidable beamPoint : chunks[round(100+dasherLocation.x/100)][round(100+dasherLocation.y/100)].content) {
-        PVector pointLocation = new PVector (beamPoint.point.x, beamPoint.point.y, beamPoint.point.z);
-        if (dasherLocation.dist(pointLocation) <= dasher.size/2) 
-          //dasher.kill();
-          println ("Collision occured");
+        for (Collidable beamPoint : chunks[round(100+dasherLocation.x/100)][round(100+dasherLocation.y/100)].content) {
+          PVector pointLocation = new PVector (beamPoint.x, beamPoint.y, beamPoint.z);
+          if (dasherLocation.dist(pointLocation) <= dasher.size/2) {
+            dasher.kill();
+          }
+        }
       }
     }
   }
@@ -130,54 +133,9 @@ class BeamPoint extends Point3D {
     this.lookAngle = lookAngle.copy();
 
     //Optimize this later
-    if (round(100+x/100) >= 0 && round(100+x/100) < 200 && round(100+y/100) >= 0 && round(100+y/100) < 200) {
+    //If chunk is valid, save xyz coordinates into the corresponding chunk content ArrayList
+    if (chunkValid(x, y)) {
       chunks[round(100+x/100)][round(100+y/100)].content.add (new Collidable (x, y, z));
     }
-  }
-}
-
-class DeathChunk extends Renderable {
-  DeathChunkPoint point; //location
-  int life;
-
-  DeathChunk(int x, int y, int z) {
-    point = new DeathChunkPoint(x, y, z);
-    life = 255;
-  }
-
-  void Main() {
-    point.Main();
-    life--;
-  }
-  void render() {
-    noStroke();
-    fill (life);
-    translate (point.x, point.y, point.z);
-    box (40);
-    translate (-point.x, -point.y, -point.z);
-  }
-}
-
-class DeathChunkPoint extends Point3D {
-  PVector v; // velocity
-  DeathChunkPoint(int x, int y, int z) {
-    super (x, y, z);
-    this.v=PVector.random3D();
-    v.mult(10);
-  }
-
-  void Main() {
-    x+=v.x;
-    y+=v.y;
-    z+=v.z;
-  }
-}
-
-class Point3D {
-  int x, y, z;
-  Point3D(int x, int y, int z) {
-    this.x=x;
-    this.y=y;
-    this.z=z;
   }
 }

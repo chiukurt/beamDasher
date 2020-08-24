@@ -1,3 +1,4 @@
+
 class Renderable extends Object {
   boolean enabled=true;
   void render() {
@@ -5,6 +6,7 @@ class Renderable extends Object {
   void Main() {
   }
 }
+
 
 void objectListTraverseRender(ArrayList<ArrayList> gameObjects) {
   for (ArrayList objectTypeList : gameObjects) {
@@ -34,13 +36,6 @@ void enableLightsCustom() {
 }
 
 void renderObjectsPerType (ArrayList<Renderable> objectTypeList) {
-/*
-  pushMatrix();
-  if (gameState!=2)
-    p1.render();
-  else
-    p1.renderDeath();
-  popMatrix();*/
   
   pushMatrix();
   for (Renderable itemToRender : objectTypeList) {

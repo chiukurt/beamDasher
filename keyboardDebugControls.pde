@@ -64,9 +64,7 @@ void keyboardDebugControls() {
 
 void keyPressed()
 { 
-  //println(KeyEvent.getKeyText(keyCode));
   keys[keyCode] = true;
-  // println (keyCode);
 }
 
 void keyReleased()
